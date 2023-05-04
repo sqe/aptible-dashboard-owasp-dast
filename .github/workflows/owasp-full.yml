@@ -19,5 +19,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker_name: 'owasp/zap2docker-stable'
-          target: 'https://dashboard.aptible.com/login'
+          target: 'https://dashboard.aptible.com/login/'
           cmd_options: '-a'
