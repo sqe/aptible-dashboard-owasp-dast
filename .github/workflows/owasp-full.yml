@@ -1,0 +1,29 @@
+name: OWASP Full Scan of Aptible Dashboard page
+
+on:
+  push:
+  schedule:
+    # Runs nightly
+    - cron: '0 0 * * *'
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan the web application
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'owasp/zap2docker-stable'
+          target: 'https://dashboard.aptible.com/login'
+          cmd_options: '-a'
+          fail_action: false
+      - name: "Upload Report"
+        uses: actions/upload-artifact@v1
+        with:
+          name: zap-scan-report
+          path: .report_html.html
