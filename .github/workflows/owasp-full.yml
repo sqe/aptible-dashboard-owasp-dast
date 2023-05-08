@@ -11,9 +11,9 @@ jobs:
     name: Scan the web application
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
-          ref: master
+          ref: main
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@master
         with:
@@ -22,3 +22,8 @@ jobs:
           target: 'https://dashboard.aptible.com/login'
           cmd_options: '-a'
           fail_action: false
+      - name: "Upload Report"
+        uses: actions/upload-artifact@v1
+        with:
+          name: zap-scan-report
+          path: report.html
