@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: main
+          ref: master
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@master
         with:
@@ -21,3 +21,4 @@ jobs:
           docker_name: 'owasp/zap2docker-stable'
           target: 'https://dashboard.aptible.com/login'
           cmd_options: '-a'
+          fail_action: false
